@@ -28,6 +28,7 @@ interface SearchBarProps {
 }
 
 const suggestedDestinations = [
+  { name: 'Dhaka, Bangladesh', subtitle: 'For its rich culture and history', icon: '🏙️' },
   { name: 'Toronto, Canada', subtitle: 'For sights like CN Tower', icon: '🏢' },
   { name: 'Kolkata, India', subtitle: 'For its top-notch dining', icon: '🍜' },
   { name: 'Edmonton, Canada', subtitle: 'For a trip abroad', icon: '✈️' },
@@ -159,7 +160,7 @@ export default function SearchBar({ onSearch, onResultsUpdate }: SearchBarProps 
   };
 
   return (
-    <div className="py-8" ref={searchBarRef}>
+    <div className="py-8 border-b border-gray-200 mb-8" ref={searchBarRef}>
       {/* Search Form */}
       <div className="max-w-4xl mx-auto relative">
         <div className="flex items-center bg-white border border-gray-300 rounded-full shadow-lg hover:shadow-xl transition-shadow p-2">

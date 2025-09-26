@@ -9,9 +9,9 @@ export default function Header() {
     <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
       <div className="px-6 lg:px-10 xl:px-20 py-4">
         <div className="flex items-center justify-between">
-          {/* Logo */}
+          {/* Logo generating by chatGPT */}
           <div className="flex items-center">
-            <div className="text-2xl font-bold text-[#FF385C]">
+            <div onClick={() => window.location.href = '/'} className="text-2xl font-bold text-[#FF385C]">
               <svg width="102" height="32" viewBox="0 0 102 32" fill="currentColor">
                 <path d="M12.4 0C8.9 0 5.8 1.5 3.7 4.1L0.2 8.6C-0.2 9.1-0.2 9.8 0.3 10.2L3.7 13.9C5.8 16.5 8.9 18 12.4 18S19 16.5 21.1 13.9L24.5 10.2C24.9 9.7 24.9 9 24.5 8.6L21.1 4.1C19 1.5 15.9 0 12.4 0Z" />
                 <path d="M67.4 18.5C71.7 18.5 75 15.2 75 10.9S71.7 3.3 67.4 3.3 59.8 6.6 59.8 10.9 63.1 18.5 67.4 18.5ZM67.4 7.7C69.2 7.7 70.6 9.1 70.6 10.9S69.2 14.1 67.4 14.1 64.2 12.7 64.2 10.9 65.6 7.7 67.4 7.7Z" />

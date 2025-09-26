@@ -69,7 +69,7 @@ export default function Home() {
       ) : (
         <main className="px-6 lg:px-10 xl:px-20">
           <SearchBar onSearch={handleSearch} />
-          <SearchFilters />
+
           <HomeCarousels />
         </main>
       )}
