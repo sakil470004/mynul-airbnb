@@ -58,7 +58,7 @@ export default function Footer() {
         <div className="border-t border-gray-300 mt-8 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="flex items-center space-x-4 text-sm text-gray-600">
-              <span>© 2024 Airbnb, Inc.</span>
+              <span>© 2025 Mynul, Inc.</span>
               <span>·</span>
               <a href="#" className="hover:underline">Privacy</a>
               <span>·</span>

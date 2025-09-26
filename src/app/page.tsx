@@ -14,8 +14,6 @@ export default function Home() {
         <SearchBar />
         <SearchFilters />
         <HomeCarousels />
-        <Categories />
-        <PropertyGrid />
       </main>
       <Footer />
     </div>
