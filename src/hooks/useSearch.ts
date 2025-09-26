@@ -87,7 +87,7 @@ export const useSearch = () => {
       if (params.amenities && params.amenities.length > 0) searchParams.set('amenities', params.amenities.join(','));
       if (params.instantBook) searchParams.set('instantBook', 'true');
 
-      const response = await fetch(`/api/search-test?${searchParams.toString()}`);
+      const response = await fetch(`/api/search?${searchParams.toString()}`);
       
       if (!response.ok) {
         throw new Error('Search failed');
