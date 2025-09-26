@@ -6,14 +6,21 @@ if (!MONGODB_URI) {
   throw new Error('Please define the DB_URI environment variable inside .env');
 }
 
+interface MongooseCache {
+  conn: typeof mongoose | null;
+  promise: Promise<typeof mongoose> | null;
+}
+
 /**
  * Global is used here to maintain a cached connection across hot reloads
  * in development. This prevents connections growing exponentially
  * during API Route usage.
  */
-let cached: any = (global as any).mongoose;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+let cached: MongooseCache = (global as any).mongoose;
 
 if (!cached) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   cached = (global as any).mongoose = { conn: null, promise: null };
 }
 

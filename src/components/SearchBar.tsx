@@ -12,23 +12,13 @@ interface SearchParams {
   pets: number;
 }
 
-interface SearchResult {
-  _id: string;
-  title: string;
-  location: string;
-  price: number;
-  rating: number;
-  reviews: number;
-  images: string[];
-}
+
 
 interface SearchBarProps {
   onSearch?: (params: SearchParams) => Promise<void>;
-  onResultsUpdate?: (results: SearchResult[]) => void;
 }
 
 const suggestedDestinations = [
-  { name: 'Dhaka, Bangladesh', subtitle: 'For its rich culture and history', icon: '🏙️' },
   { name: 'Toronto, Canada', subtitle: 'For sights like CN Tower', icon: '🏢' },
   { name: 'Kolkata, India', subtitle: 'For its top-notch dining', icon: '🍜' },
   { name: 'Edmonton, Canada', subtitle: 'For a trip abroad', icon: '✈️' },
@@ -38,7 +28,7 @@ const suggestedDestinations = [
   { name: 'Chattogram, Bangladesh', subtitle: 'A hidden gem', icon: '💎' },
 ];
 
-export default function SearchBar({ onSearch, onResultsUpdate }: SearchBarProps = {}) {
+export default function SearchBar({ onSearch }: SearchBarProps = {}) {
   const [searchParams, setSearchParams] = useState<SearchParams>({
     destination: '',
     checkIn: null,

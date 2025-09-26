@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { ArrowLeftIcon, HeartIcon, ShareIcon, StarIcon, ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
+import { ArrowLeftIcon, HeartIcon, ShareIcon } from '@heroicons/react/24/outline';
 import { HeartIcon as HeartSolid, StarIcon as StarSolid } from '@heroicons/react/24/solid';
 import Header from './Header';
 
@@ -138,10 +138,8 @@ const mockPropertyData: PropertyData = {
   coordinates: { lat: 3.1319, lng: 101.6841 }
 };
 
-export default function PropertyDetails({ propertyId, onBack }: PropertyDetailsProps) {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+export default function PropertyDetails({ onBack }: PropertyDetailsProps) {
   const [isFavorite, setIsFavorite] = useState(false);
-  const [showAllPhotos, setShowAllPhotos] = useState(false);
   const [showAllAmenities, setShowAllAmenities] = useState(false);
   const [showAllReviews, setShowAllReviews] = useState(false);
   const [checkIn, setCheckIn] = useState<Date | null>(null);
@@ -149,18 +147,6 @@ export default function PropertyDetails({ propertyId, onBack }: PropertyDetailsP
   const [guests, setGuests] = useState({ adults: 1, children: 0, infants: 0 });
 
   const property = mockPropertyData; // In real app, fetch by propertyId
-
-  const nextImage = () => {
-    setCurrentImageIndex((prev) => 
-      prev === property.images.length - 1 ? 0 : prev + 1
-    );
-  };
-
-  const prevImage = () => {
-    setCurrentImageIndex((prev) => 
-      prev === 0 ? property.images.length - 1 : prev - 1
-    );
-  };
 
   const totalGuests = guests.adults + guests.children;
   const totalNights = checkIn && checkOut ? 
@@ -249,7 +235,7 @@ export default function PropertyDetails({ propertyId, onBack }: PropertyDetailsP
                   />
                   {index === 3 && property.images.length > 5 && (
                     <button
-                      onClick={() => setShowAllPhotos(true)}
+                      onClick={() => alert('Photo gallery would open here')}
                       className="absolute inset-0 bg-black/50 flex items-center justify-center text-white font-medium hover:bg-black/60 transition-colors"
                     >
                       Show all {property.images.length} photos
@@ -325,7 +311,7 @@ export default function PropertyDetails({ propertyId, onBack }: PropertyDetailsP
 
             {/* Where you'll sleep */}
             <div className="border-b border-gray-200 pb-8">
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">Where you'll sleep</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-4">Where you&apos;ll sleep</h3>
               <div className="bg-gray-50 rounded-lg p-4">
                 <div className="relative aspect-video rounded-lg overflow-hidden mb-3">
                   <Image
@@ -444,7 +430,7 @@ export default function PropertyDetails({ propertyId, onBack }: PropertyDetailsP
                     Reserve
                   </button>
 
-                  <p className="text-center text-sm text-gray-600">You won't be charged yet</p>
+                  <p className="text-center text-sm text-gray-600">You won&apos;t be charged yet</p>
 
                   {/* Price breakdown */}
                   {totalNights > 0 && (
@@ -541,7 +527,7 @@ export default function PropertyDetails({ propertyId, onBack }: PropertyDetailsP
 
         {/* Location */}
         <div className="mt-12 border-t border-gray-200 pt-8">
-          <h3 className="text-2xl font-semibold text-gray-900 mb-4">Where you'll be</h3>
+          <h3 className="text-2xl font-semibold text-gray-900 mb-4">Where you&apos;ll be</h3>
           <p className="text-gray-600 mb-6">{property.location}</p>
           
           {/* Map placeholder */}
