@@ -2,14 +2,10 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
-import { useApartments } from '@/hooks/useApartments';
 
 export default function PropertyGrid() {
   const [favorites, setFavorites] = useState<Set<string>>(new Set());
   const [currentImageIndex, setCurrentImageIndex] = useState<{[key: string]: number}>({});
-  
-  // Fetch all apartments for the main grid
-  const { apartments: properties, loading, error } = useApartments({ limit: 20 });
 
   const toggleFavorite = (propertyId: string) => {
     const newFavorites = new Set(favorites);
@@ -35,40 +31,37 @@ export default function PropertyGrid() {
     }));
   };
 
-  if (loading) {
-    return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 pb-10">
-        {[...Array(8)].map((_, i) => (
-          <div key={i} className="animate-pulse">
-            <div className="aspect-square bg-gray-300 rounded-xl mb-3"></div>
-            <div className="space-y-2">
-              <div className="h-4 bg-gray-300 rounded w-3/4"></div>
-              <div className="h-3 bg-gray-300 rounded w-1/2"></div>
-              <div className="h-3 bg-gray-300 rounded w-1/3"></div>
-            </div>
-          </div>
-        ))}
-      </div>
-    );
-  }
 
-  if (error) {
-    return (
-      <div className="text-center py-12">
-        <p className="text-red-500">{error}</p>
-      </div>
-    );
-  }
+
+  // Create sample property data
+  const sampleProperties = Array.from({ length: 20 }).map((_, index) => ({
+    _id: `grid-property-${index}`,
+    title: index % 5 === 0 ? 'Apartment in Dhaka' :
+           index % 5 === 1 ? 'Room in Dhaka' :
+           index % 5 === 2 ? 'Apartment in Gulasana Thana' :
+           index % 5 === 3 ? 'Apartment in Moham\'madapura Thana' :
+           'Home in Dhaka',
+    location: 'Dhaka, Bangladesh',
+    distance: `${Math.floor(Math.random() * 30) + 5} kilometers away`,
+    dates: 'Oct 15–20',
+    price: Math.floor(Math.random() * 200) + 50,
+    rating: Math.round((Math.random() * 0.5 + 4.5) * 100) / 100,
+    images: [
+      `https://images.unsplash.com/photo-${1564013799919 + index}?w=400&h=400&fit=crop`,
+      `https://images.unsplash.com/photo-${1502005229762 + index}?w=400&h=400&fit=crop`
+    ],
+    isGuestFavorite: Math.random() > 0.3
+  }));
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 pb-10">
-      {properties.map((property) => (
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 pb-10 mt-8">
+      {sampleProperties.map((property) => (
         <div key={property._id} className="group cursor-pointer">
           {/* Image carousel */}
           <div className="relative mb-3 rounded-xl overflow-hidden">
             <div className="aspect-square relative">
               <Image
-                src={property.images?.[currentImageIndex[property._id!] || 0] || '/placeholder-image.jpg'}
+                src={property.images[currentImageIndex[property._id] || 0]}
                 alt={property.title}
                 fill
                 className="object-cover group-hover:scale-105 transition-transform duration-300"
@@ -86,13 +79,13 @@ export default function PropertyGrid() {
               <button
                 onClick={(e) => {
                   e.stopPropagation();
-                  toggleFavorite(property._id!);
+                  toggleFavorite(property._id);
                 }}
                 className="absolute top-3 right-3 p-2 hover:scale-110 transition-transform"
               >
                 <svg
                   className={`w-6 h-6 ${
-                    favorites.has(property._id!)
+                    favorites.has(property._id)
                       ? 'text-[#FF385C] fill-current'
                       : 'text-white fill-black/20 hover:fill-black/40'
                   }`}
@@ -109,12 +102,12 @@ export default function PropertyGrid() {
               </button>
 
               {/* Navigation arrows */}
-              {property.images && property.images.length > 1 && (
+              {property.images.length > 1 && (
                 <>
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
-                      prevImage(property._id!, property.images!.length);
+                      prevImage(property._id, property.images.length);
                     }}
                     className="absolute left-3 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white rounded-full p-2 opacity-0 group-hover:opacity-100 transition-opacity shadow-md"
                   >
@@ -125,7 +118,7 @@ export default function PropertyGrid() {
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
-                      nextImage(property._id!, property.images!.length);
+                      nextImage(property._id, property.images.length);
                     }}
                     className="absolute right-3 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white rounded-full p-2 opacity-0 group-hover:opacity-100 transition-opacity shadow-md"
                   >
@@ -137,13 +130,13 @@ export default function PropertyGrid() {
               )}
 
               {/* Image dots */}
-              {property.images && property.images.length > 1 && (
+              {property.images.length > 1 && (
                 <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex space-x-1">
                   {property.images.map((_, index) => (
                     <div
                       key={index}
                       className={`w-1.5 h-1.5 rounded-full ${
-                        index === (currentImageIndex[property._id!] || 0)
+                        index === (currentImageIndex[property._id] || 0)
                           ? 'bg-white'
                           : 'bg-white/50'
                       }`}
