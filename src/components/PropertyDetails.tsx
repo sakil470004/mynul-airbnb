@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { ArrowLeftIcon, HeartIcon, ShareIcon, StarIcon, ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import { HeartIcon as HeartSolid, StarIcon as StarSolid } from '@heroicons/react/24/solid';
+import Header from './Header';
 
 interface PropertyDetailsProps {
   propertyId: string;
@@ -171,8 +172,9 @@ export default function PropertyDetails({ propertyId, onBack }: PropertyDetailsP
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Header */}
-      <div className="sticky top-0 z-50 bg-white border-b border-gray-200">
+      <Header />
+      {/* Name and Tittle */}
+      <div className="sticky top-0 z-50 bg-white ">
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <button
