@@ -3,10 +3,11 @@
 import { useState } from 'react';
 import Header from '@/components/Header';
 import SearchBar from '@/components/SearchBar';
-import SearchFilters from '@/components/SearchFilters';
+
 import HomeCarousels from '@/components/HomeCarousels';
 
 import SearchResults from '@/components/SearchResults';
+import PropertyDetails from '@/components/PropertyDetails';
 import Footer from '@/components/Footer';
 import { useSearch } from '@/hooks/useSearch';
 
@@ -23,6 +24,8 @@ interface SearchParams {
 export default function Home() {
   const [isSearchMode, setIsSearchMode] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [showPropertyDetails, setShowPropertyDetails] = useState(false);
+  const [selectedPropertyId, setSelectedPropertyId] = useState<string | null>(null);
   const { results, loading, error, search } = useSearch();
 
   const handleSearch = async (params: SearchParams) => {
@@ -39,13 +42,32 @@ export default function Home() {
   const resetToHome = () => {
     setIsSearchMode(false);
     setSearchQuery('');
+    setShowPropertyDetails(false);
+    setSelectedPropertyId(null);
+  };
+
+  const handlePropertyClick = (propertyId: string) => {
+    setSelectedPropertyId(propertyId);
+    setShowPropertyDetails(true);
+  };
+
+  const handleBackFromProperty = () => {
+    setShowPropertyDetails(false);
+    setSelectedPropertyId(null);
   };
 
   return (
     <div className="min-h-screen bg-white">
-      <Header />
-      
-      {isSearchMode ? (
+      {showPropertyDetails && selectedPropertyId ? (
+        <PropertyDetails 
+          propertyId={selectedPropertyId}
+          onBack={handleBackFromProperty}
+        />
+      ) : (
+        <>
+          <Header />
+          
+          {isSearchMode ? (
         <main className="px-6 lg:px-10 xl:px-20">
           <SearchBar onSearch={handleSearch} />
           <div className="py-4">
@@ -64,17 +86,19 @@ export default function Home() {
             loading={loading} 
             error={error}
             searchQuery={searchQuery}
+            onPropertyClick={handlePropertyClick}
           />
         </main>
       ) : (
-        <main className="px-6 lg:px-10 xl:px-20">
-          <SearchBar onSearch={handleSearch} />
-
-          <HomeCarousels />
-        </main>
+                  <main className="px-6 lg:px-10 xl:px-20">
+            <SearchBar onSearch={handleSearch} />
+            <HomeCarousels onPropertyClick={handlePropertyClick} />
+          </main>
+        )}
+        
+        <Footer />
+      </>
       )}
-      
-      <Footer />
     </div>
   );
 }

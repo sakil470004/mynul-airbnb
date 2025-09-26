@@ -24,9 +24,10 @@ interface SearchResultsProps {
   loading: boolean;
   error: string | null;
   searchQuery?: string;
+  onPropertyClick?: (propertyId: string) => void;
 }
 
-export default function SearchResults({ results, loading, error, searchQuery }: SearchResultsProps) {
+export default function SearchResults({ results, loading, error, searchQuery, onPropertyClick }: SearchResultsProps) {
   const [favorites, setFavorites] = useState<Set<string>>(new Set());
 
   const toggleFavorite = (id: string) => {
@@ -124,6 +125,7 @@ export default function SearchResults({ results, loading, error, searchQuery }: 
               property={property}
               isFavorite={favorites.has(property._id)}
               onToggleFavorite={() => toggleFavorite(property._id)}
+              onClick={() => onPropertyClick?.(property._id)}
             />
           ))}
         </div>
@@ -145,9 +147,10 @@ interface PropertyCardProps {
   property: SearchResult;
   isFavorite: boolean;
   onToggleFavorite: () => void;
+  onClick?: () => void;
 }
 
-function PropertyCard({ property, isFavorite, onToggleFavorite }: PropertyCardProps) {
+function PropertyCard({ property, isFavorite, onToggleFavorite, onClick }: PropertyCardProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const nextImage = (e: React.MouseEvent) => {
@@ -165,7 +168,7 @@ function PropertyCard({ property, isFavorite, onToggleFavorite }: PropertyCardPr
   };
 
   return (
-    <div className="group cursor-pointer">
+    <div className="group cursor-pointer" onClick={onClick}>
       {/* Image carousel */}
       <div className="relative aspect-square rounded-xl overflow-hidden mb-3">
         <Image

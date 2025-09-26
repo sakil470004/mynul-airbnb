@@ -3,7 +3,11 @@
 import Image from 'next/image';
 import { useState } from 'react';
 
-export default function HomeCarousels() {
+interface HomeCarouselsProps {
+  onPropertyClick?: (propertyId: string) => void;
+}
+
+export default function HomeCarousels({ onPropertyClick }: HomeCarouselsProps = {}) {
   const [favorites, setFavorites] = useState<Set<string>>(new Set());
 
   const toggleFavorite = (propertyId: string) => {
@@ -17,7 +21,7 @@ export default function HomeCarousels() {
   };
 
   const PropertyCard = ({ property }: { property: { _id: string; title: string; price: number; rating: number; images: string[]; isGuestFavorite: boolean } }) => (
-    <div className="flex-shrink-0 w-72">
+    <div className="flex-shrink-0 w-72 cursor-pointer" onClick={() => onPropertyClick?.(property._id)}>
       <div className="relative mb-3 rounded-xl overflow-hidden">
         <div className="aspect-[4/3] relative">
           <Image
