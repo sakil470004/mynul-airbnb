@@ -153,10 +153,10 @@ export default function SearchBar({ onSearch }: SearchBarProps = {}) {
     <div className="py-8 border-b border-gray-200 mb-8" ref={searchBarRef}>
       {/* Search Form */}
       <div className="max-w-4xl mx-auto relative">
-        <div className="flex items-center bg-white border border-gray-300 rounded-full shadow-lg hover:shadow-xl transition-shadow p-2">
+        <div className="flex items-center bg-white border border-gray-300 rounded-full shadow-lg hover:shadow-xl transition-shadow p-1 md:p-2">
           {/* Where */}
           <div 
-            className={`flex-1 px-6 py-3 rounded-full cursor-pointer transition-colors ${
+            className={`flex-1 px-2 text-xs md:px-6 py-1 md:py-3 rounded-full cursor-pointer transition-colors ${
               activeField === 'where' ? 'bg-white shadow-lg' : 'hover:bg-gray-100'
             }`}
             onClick={() => {
@@ -176,11 +176,11 @@ export default function SearchBar({ onSearch }: SearchBarProps = {}) {
             />
           </div>
 
-          <div className="w-px h-8 bg-gray-300"></div>
+          <div className="w-px h-12 md:h-8 bg-gray-300"></div>
 
           {/* Check in */}
           <div 
-            className={`flex-1 px-6 py-3 rounded-full cursor-pointer transition-colors ${
+            className={`flex-1 text-center md:text-left px-2 md:px-6 py-1 md:py-3 rounded-full cursor-pointer transition-colors ${
               activeField === 'checkin' ? 'bg-white shadow-lg' : 'hover:bg-gray-100'
             }`}
             onClick={() => {
@@ -198,7 +198,7 @@ export default function SearchBar({ onSearch }: SearchBarProps = {}) {
 
           {/* Check out */}
           <div 
-            className={`flex-1 px-6 py-3 rounded-full cursor-pointer transition-colors ${
+            className={`flex-1 px-2 md:text-left text-center  md:px-6 py-1 md:py-3 rounded-full cursor-pointer transition-colors ${
               activeField === 'checkout' ? 'bg-white shadow-lg' : 'hover:bg-gray-100'
             }`}
             onClick={() => {
@@ -216,7 +216,7 @@ export default function SearchBar({ onSearch }: SearchBarProps = {}) {
 
           {/* Who */}
           <div 
-            className={`flex-1 px-6 py-3 rounded-full cursor-pointer transition-colors ${
+            className={`flex-1 px-2 md:px-6 py-1 text-center md:text-left md:py-3 rounded-full cursor-pointer transition-colors ${
               activeField === 'guests' ? 'bg-white shadow-lg' : 'hover:bg-gray-100'
             }`}
             onClick={() => {
